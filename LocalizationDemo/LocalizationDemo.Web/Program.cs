@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using LocalizationDemo.Database.Repositories;
 using LocalizationDemo.Database.Storage;
 using LocalizationDemo.Domain.Collections;
@@ -5,11 +6,16 @@ using LocalizationDemo.Domain.Ports;
 using LocalizationDemo.Domain.Services;
 using LocalizationDemo.Web.Helpers;
 using LocalizationDemo.Web.Models;
+using Microsoft.AspNetCore.Http.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AddEndpointsApiExplorer()
     .AddSwaggerGen()
+    .Configure<JsonOptions>(options =>
+    {
+        options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    })
     .AddScoped<ContentCultureAccessor>()
     .AddSqlite<LocalizationDemoContext>(builder.Configuration.GetConnectionString("DefaultConnection"))
     .AddScoped<IProductsRepository, ProductsRepository>()
