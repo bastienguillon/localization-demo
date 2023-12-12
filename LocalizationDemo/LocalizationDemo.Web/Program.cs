@@ -12,10 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AddEndpointsApiExplorer()
     .AddSwaggerGen()
-    .Configure<JsonOptions>(options =>
-    {
-        options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
-    })
+    .Configure<JsonOptions>(options => { options.SerializerOptions.Converters.Add(new JsonStringEnumConverter()); })
     .AddScoped<ContentCultureAccessor>()
     .AddSqlite<LocalizationDemoContext>(builder.Configuration.GetConnectionString("DefaultConnection"))
     .AddScoped<IProductsRepository, ProductsRepository>()
@@ -29,19 +26,42 @@ app
     .UseMiddleware<CurrentContentCultureSetterMiddleware>();
 
 // Get all products
-app.MapGet("/api/products", async (ProductsCollection collection) =>
+app.MapGet("/api/products", async (
+        ProductsCollection collection
+    ) =>
     {
         var products = await collection.GetAllAsync();
         return products
             .Select(product => new ProductDto(
+                product.Id,
+                product.Name,
+                product.Description,
+                product.UsdPrice,
+                product.Category
+            ));
+    })
+    .WithName("GetAllProducts")
+    .WithOpenApi();
+
+// Get single product
+app.MapGet("/api/products/{id}", async (
+        int id,
+        ProductsCollection collection
+    ) =>
+    {
+        var product = await collection.GetByIdAsync(id);
+        return product is null
+            ? Results.NotFound()
+            : Results.Ok(new ProductDto(
                     product.Id,
                     product.Name,
                     product.Description,
                     product.UsdPrice,
                     product.Category
-            ));
+                )
+            );
     })
-    .WithName("GetProducts")
+    .WithName("GetSingleProduct")
     .WithOpenApi();
 
 app.Run();
