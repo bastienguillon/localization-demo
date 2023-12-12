@@ -5,6 +5,7 @@ namespace LocalizationDemo.Domain.Models.Products;
 public sealed class LocalizedProduct
 {
     public int Id { get; set; }
+    public string CultureCode { get; set; }
     
     public decimal UsdPrice { get; set; }
     public ProductCategory Category { get; set; }

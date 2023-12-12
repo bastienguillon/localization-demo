@@ -113,7 +113,7 @@ namespace LocalizationDemo.Database.Migrations
 				(2, 'en-US', 1, 'Golden oysters', 'Better than caviar'),
 				(2, 'fr-FR', 0, 'Huîtres en or', 'Mieux que le caviar'),
 
-				(3, 'en-US', 1, 'Trechuchet', ''),
+				(3, 'en-US', 1, 'Trebuchet', ''),
 				(3, 'fr-FR', 0, 'Trébuchet', 'Construction médiévale capable de lancer un projectile de 90 kilogrammes sur une distance de 300 mètres.'),
 
 				(4, 'en-US', 1, 'Tie', ''),

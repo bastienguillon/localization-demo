@@ -14,6 +14,12 @@ public class LocalizedProductConfiguration : IEntityTypeConfiguration<LocalizedP
         
         builder
             .HasKey(product => product.Id);
+        
+        builder
+            .Property(translation => translation.CultureCode)
+            .IsRequired()
+            .HasColumnName("CultureCode")
+            .HasMaxLength(16);
 
         builder
             .Property(product => product.Category)

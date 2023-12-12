@@ -26,6 +26,12 @@ namespace LocalizationDemo.Database.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("Category");
 
+                    b.Property<string>("CultureCode")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("TEXT")
+                        .HasColumnName("CultureCode");
+
                     b.Property<string>("Description")
                         .HasColumnType("TEXT")
                         .HasColumnName("Description");
