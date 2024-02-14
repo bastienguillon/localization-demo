@@ -3,6 +3,7 @@ using LocalizationDemo.Database.Repositories;
 using LocalizationDemo.Database.Storage;
 using LocalizationDemo.Domain.Abstractions;
 using LocalizationDemo.Domain.Collections;
+using LocalizationDemo.Domain.Models.Products;
 using LocalizationDemo.Domain.Ports;
 using LocalizationDemo.Domain.Services;
 using LocalizationDemo.Web.Helpers;
@@ -81,6 +82,26 @@ app.MapGet("/api/products/{id}", async (
             );
     })
     .WithOpenApi();
+
+// Update single product
+app.MapPut("/api/products/{id}", async (
+    int id,
+    [FromBody] ProductUpdateCandidate candidate,
+    ProductsCollection collection
+) =>
+{
+    var updatedProduct = await collection.UpdateByIdAsync(id, candidate);
+    return updatedProduct is null
+        ? Results.NotFound()
+        : Results.Ok(new ProductDto(
+                updatedProduct.Id,
+                updatedProduct.Name,
+                updatedProduct.Description,
+                updatedProduct.UsdPrice,
+                updatedProduct.Category
+            )
+        );
+});
 
 // Get single shopping cart
 app.MapGet("/api/shopping-carts/{id}", async (
