@@ -18,6 +18,6 @@ public sealed class LocalizationDemoContext(
         // Localized entities query filters
         modelBuilder
             .Entity<LocalizedProduct>()
-            .HasQueryFilter(product => product.CultureCode == contentCultureAccessor.ContentCulture);
+            .HasQueryFilter(product => product.CultureCode.ToLower() == contentCultureAccessor.ContentCulture.ToLower());
     }
 }

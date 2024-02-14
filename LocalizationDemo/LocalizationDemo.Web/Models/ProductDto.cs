@@ -2,4 +2,4 @@
 
 namespace LocalizationDemo.Web.Models;
 
-public record ProductDto(int Id, string Name, string? Description, decimal UsdPrice, ProductCategory Category);
+public sealed record ProductDto(int Id, string Name, string? Description, decimal UsdPrice, ProductCategory Category);

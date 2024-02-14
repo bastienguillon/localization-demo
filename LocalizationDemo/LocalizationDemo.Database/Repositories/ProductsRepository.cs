@@ -5,20 +5,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LocalizationDemo.Database.Repositories;
 
-public sealed class ProductsRepository : IProductsRepository
+public sealed class ProductsRepository(LocalizationDemoContext dbContext) : IProductsRepository
 {
-    private readonly LocalizationDemoContext _dbContext;
-
-    public ProductsRepository(
-        LocalizationDemoContext dbContext    
-    )
+    public async Task<IReadOnlyCollection<LocalizedProduct>> GetAllAsync(string? search)
     {
-        _dbContext = dbContext;
+        IQueryable<LocalizedProduct> query = dbContext.Set<LocalizedProduct>();
+        if (!string.IsNullOrWhiteSpace(search))
+        {
+            query = query.Where(product => EF.Functions.Like(product.Name, $"%{search}%"));
+        }
+        return await query.ToArrayAsync();
     }
 
-    public async Task<IReadOnlyCollection<LocalizedProduct>> GetAllAsync()
-        => await _dbContext.Set<LocalizedProduct>().ToArrayAsync();
-
     public Task<LocalizedProduct?> GetByIdAsync(int id) =>
-        _dbContext.Set<LocalizedProduct>().FirstOrDefaultAsync(product => product.Id == id);
+        dbContext.Set<LocalizedProduct>().FirstOrDefaultAsync(product => product.Id == id);
 }

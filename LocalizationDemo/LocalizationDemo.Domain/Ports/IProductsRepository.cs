@@ -4,6 +4,6 @@ namespace LocalizationDemo.Domain.Ports;
 
 public interface IProductsRepository
 {
-    Task<IReadOnlyCollection<LocalizedProduct>> GetAllAsync();
+    Task<IReadOnlyCollection<LocalizedProduct>> GetAllAsync(string? search);
     Task<LocalizedProduct?> GetByIdAsync(int id);
 }

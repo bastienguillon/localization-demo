@@ -7,13 +7,13 @@ public sealed class CurrentContentCultureSetterMiddleware(RequestDelegate next)
 {
     private const string CultureCodeQueryParam = "cultureCode";
 
-    public async Task InvokeAsync(
+    public Task InvokeAsync(
         HttpContext context,
         ContentCultureAccessor cultureAccessor
     )
     {
         if (context.Request.Query.TryGetValue(CultureCodeQueryParam, out var cultureCode) &&
-            ContentCulture.All.Contains(cultureCode.ToString()))
+            ContentCulture.All.Contains(cultureCode.ToString(), StringComparer.OrdinalIgnoreCase))
         {
             cultureAccessor.ContentCulture = cultureCode.ToString();
         }
@@ -22,6 +22,6 @@ public sealed class CurrentContentCultureSetterMiddleware(RequestDelegate next)
             cultureAccessor.ContentCulture = ContentCulture.Default;
         }
 
-        await next(context);
+        return next(context);
     }
 }

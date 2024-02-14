@@ -3,6 +3,7 @@ using System;
 using LocalizationDemo.Database.Storage;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LocalizationDemo.Database.Migrations
 {
     [DbContext(typeof(LocalizationDemoContext))]
-    partial class LocalizationDemoContextModelSnapshot : ModelSnapshot
+    [Migration("20231213094347_AddShoppingCart")]
+    partial class AddShoppingCart
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
@@ -73,19 +76,7 @@ namespace LocalizationDemo.Database.Migrations
                     b.ToTable("Products", (string)null);
                 });
 
-            modelBuilder.Entity("LocalizationDemo.Domain.Models.Shopping.LocalizedShoppingCart", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable((string)null);
-
-                    b.ToView("ShoppingCarts", (string)null);
-                });
-
-            modelBuilder.Entity("LocalizationDemo.Domain.Models.Shopping.ShoppingCart", b =>
+            modelBuilder.Entity("LocalizationDemo.Domain.Models.Products.ShoppingCart", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -138,44 +129,9 @@ namespace LocalizationDemo.Database.Migrations
                     b.Navigation("Translations");
                 });
 
-            modelBuilder.Entity("LocalizationDemo.Domain.Models.Shopping.LocalizedShoppingCart", b =>
+            modelBuilder.Entity("LocalizationDemo.Domain.Models.Products.ShoppingCart", b =>
                 {
-                    b.OwnsMany("LocalizationDemo.Domain.Models.Shopping.LocalizedShoppingCart+LocalizedShoppingCartProduct", "Products", b1 =>
-                        {
-                            b1.Property<Guid>("ShoppingCartId")
-                                .HasColumnType("TEXT");
-
-                            b1.Property<int>("ProductId")
-                                .HasColumnType("INTEGER");
-
-                            b1.HasKey("ShoppingCartId", "ProductId");
-
-                            b1.HasIndex("ProductId");
-
-                            b1.ToTable((string)null);
-
-                            b1.ToView("ShoppingCartProducts", (string)null);
-
-                            b1.HasOne("LocalizationDemo.Domain.Models.Products.LocalizedProduct", "Product")
-                                .WithMany()
-                                .HasForeignKey("ProductId")
-                                .OnDelete(DeleteBehavior.Cascade)
-                                .IsRequired();
-
-                            b1.WithOwner("ShoppingCart")
-                                .HasForeignKey("ShoppingCartId");
-
-                            b1.Navigation("Product");
-
-                            b1.Navigation("ShoppingCart");
-                        });
-
-                    b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("LocalizationDemo.Domain.Models.Shopping.ShoppingCart", b =>
-                {
-                    b.OwnsMany("LocalizationDemo.Domain.Models.Shopping.ShoppingCart+ShoppingCartProduct", "Products", b1 =>
+                    b.OwnsMany("LocalizationDemo.Domain.Models.Products.ShoppingCart+ShoppingCartProduct", "Products", b1 =>
                         {
                             b1.Property<Guid>("ShoppingCartId")
                                 .HasColumnType("TEXT");
