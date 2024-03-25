@@ -1,11 +1,20 @@
 @host = http://localhost:5139
 @cultureCode = en-US
 
-### 
+###
+### Get all
+###
+
 GET {{host}}/api/products?cultureCode={{cultureCode}}
 
 ###
-### PUT DEMO
+### Get shopping cart
+###
+
+GET {{host}}/api/shopping-carts/580d1e60-8916-44d8-bb92-5e2426e93306?cultureCode={{cultureCode}}
+
+###
+### PUT
 ###
 
 # GET product #1 initial state

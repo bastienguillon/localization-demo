@@ -12,7 +12,8 @@ public static class ApiV2
     public static WebApplication MapApiV2Endpoints(this WebApplication app)
     {
         return app
-            .MapProductEndpoints();
+            .MapProductEndpoints()
+            .MapShoppingCartEndpoints();
     }
 
     private static WebApplication MapProductEndpoints(this WebApplication app)
@@ -94,6 +95,45 @@ public static class ApiV2
                                 .Description,
                             updatedProduct.UsdPrice,
                             updatedProduct.Category
+                        )
+                    );
+            })
+            .WithTags("v2")
+            .WithOpenApi();
+
+        return app;
+    }
+
+    private static WebApplication MapShoppingCartEndpoints(this WebApplication app)
+    {
+        // Get single shopping cart
+        app.MapGet("/api/v2/shopping-carts/{id:guid}", async (
+                Guid id,
+                ShoppingCartsCollectionV2 collection,
+                ContentCultureAccessor contentCultureAccessor
+            ) =>
+            {
+                var shoppingCart = await collection.GetByIdAsync(id);
+                return shoppingCart is null
+                    ? Results.NotFound()
+                    : Results.Ok(
+                        new ShoppingCartDto(
+                            shoppingCart.Id,
+                            shoppingCart.Products.Select(scp => new ProductDto(
+                                scp.Product.Id,
+                                scp
+                                    .Product
+                                    .Translations
+                                    .GetBestTranslation(contentCultureAccessor.ContentCulture)
+                                    .Name,
+                                scp
+                                    .Product
+                                    .Translations
+                                    .GetBestTranslation(contentCultureAccessor.ContentCulture)
+                                    .Description,
+                                scp.Product.UsdPrice,
+                                scp.Product.Category
+                            ))
                         )
                     );
             })

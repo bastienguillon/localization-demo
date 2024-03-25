@@ -18,24 +18,16 @@ builder.Services
     .AddSqlite<LocalizationDemoContext>(builder.Configuration.GetConnectionString("DefaultConnection"))
     .AddScoped<IUnitOfWork, LocalizationDemoContext>()
 
-    //
-    // V1
-    // 
-
-    // Products
+    // API V1
     .AddScoped<IProductsRepository, ProductsRepository>()
     .AddScoped<ProductsCollection>()
-    // Shopping carts
     .AddScoped<IShoppingCartsRepository, ShoppingCartsRepository>()
     .AddScoped<ShoppingCartsCollection>()
-
-    //
-    // V2
-    //
-
-    // Products
+    // API V2
     .AddScoped<IProductsRepositoryV2, ProductsRepositoryV2>()
-    .AddScoped<ProductsCollectionV2>();
+    .AddScoped<ProductsCollectionV2>()
+    .AddScoped<IShoppingCartsRepositoryV2, ShoppingCartsRepositoryV2>()
+    .AddScoped<ShoppingCartsCollectionV2>();
 
 var app = builder.Build();
 app

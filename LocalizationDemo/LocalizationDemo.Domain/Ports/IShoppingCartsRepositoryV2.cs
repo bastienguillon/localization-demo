@@ -2,7 +2,7 @@
 
 namespace LocalizationDemo.Domain.Ports;
 
-public interface IShoppingCartsRepository
+public interface IShoppingCartsRepositoryV2
 {
-    Task<LocalizedShoppingCart?> GetByIdAsync(Guid id);
+    Task<ShoppingCart?> GetByIdAsync(Guid id);
 }

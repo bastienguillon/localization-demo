@@ -2,7 +2,19 @@
 @cultureCode = en-US
 
 ###
-### PUT DEMO
+### Get all
+###
+
+GET {{host}}/api/products?cultureCode={{cultureCode}}
+
+###
+### Get shopping cart
+###
+
+GET {{host}}/api/shopping-carts/580d1e60-8916-44d8-bb92-5e2426e93306?cultureCode={{cultureCode}}
+
+###
+### PUT
 ###
 
 # Get product #1 initial state
