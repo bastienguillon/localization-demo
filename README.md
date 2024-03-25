@@ -21,6 +21,18 @@ erDiagram
     }
 
     Products ||--o{ ProductTranslations : "Has one or more"
+
+    ShoppingCarts {
+        uniqueidentifier Id PK
+    }
+
+    ShoppingCartProducts {
+        uniqueidentifier ShoppingCartId PK,FK
+        int ProductId PK,FK
+    }
+
+    ShoppingCarts ||--o{ ShoppingCartProducts : "Has one or more"
+    ShoppingCartProducts ||--o{ Products : "Has one or more"
 ```
 
 ### Views
