@@ -17,7 +17,7 @@ GET {{host}}/api/shopping-carts/580d1e60-8916-44d8-bb92-5e2426e93306?cultureCode
 ### PUT
 ###
 
-# GET product #1 initial state
+### GET product #1 initial state
 GET {{host}}/api/products/1
 
 ### PUT does not work?

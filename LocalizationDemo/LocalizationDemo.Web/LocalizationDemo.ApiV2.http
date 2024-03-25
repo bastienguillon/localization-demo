@@ -17,7 +17,7 @@ GET {{host}}/api/shopping-carts/580d1e60-8916-44d8-bb92-5e2426e93306?cultureCode
 ### PUT
 ###
 
-# Get product #1 initial state
+### Get product #1 initial state
 GET {{host}}/api/v2/products/1
 
 ### PUT works right away!
