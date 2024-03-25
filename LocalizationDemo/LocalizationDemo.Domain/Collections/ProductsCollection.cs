@@ -18,6 +18,7 @@ public sealed class ProductsCollection(IProductsRepository productsRepository)
         {
             return null;
         }
+        
         // The actual update is handled by the repository :/ 
         return await productsRepository.UpdateByIdAsync(id, candidate);
     }

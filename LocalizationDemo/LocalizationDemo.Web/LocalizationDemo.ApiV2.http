@@ -1,0 +1,28 @@
+@host = http://localhost:5139
+@cultureCode = en-US
+
+###
+### PUT DEMO
+###
+
+# Get product #1 initial state
+GET {{host}}/api/v2/products/1
+
+### PUT works right away!
+PUT {{host}}/api/v2/products/1
+Content-Type: application/json
+
+{
+  "category": "Toy",
+  "translations": {
+    "en-US": {
+      "name": "SpongeBob SquarePants plush",
+      "description": ""
+    },
+    "fr-FR": {
+      "name": "Peluche Bob l'éponge",
+      "description": ""
+    }
+  }
+}
+

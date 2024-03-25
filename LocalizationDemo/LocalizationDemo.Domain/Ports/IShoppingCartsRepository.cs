@@ -1,5 +1,5 @@
 ﻿using LocalizationDemo.Domain.Models.Products;
-using LocalizationDemo.Domain.Models.Shopping;
+using LocalizationDemo.Domain.Models.ShoppingCarts;
 
 namespace LocalizationDemo.Domain.Ports;
 

@@ -1,0 +1,33 @@
+@host = http://localhost:5139
+@cultureCode = en-US
+
+### 
+GET {{host}}/api/products?cultureCode={{cultureCode}}
+
+###
+### PUT DEMO
+###
+
+# GET product #1 initial state
+GET {{host}}/api/products/1
+
+### PUT does not work?
+PUT {{host}}/api/products/1
+Content-Type: application/json
+
+{
+   "category": "Toy",
+   "translations": {
+     "en-US": {
+       "name": "SpongeBob SquarePants plush",
+       "description": ""
+     },
+     "fr-FR": {
+       "name": "Peluche Bob l'éponge",
+       "description": ""
+     }
+   }
+}
+
+### PUT actually worked...
+GET {{host}}/api/products/1

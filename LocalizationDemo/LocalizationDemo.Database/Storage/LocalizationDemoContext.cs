@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using LocalizationDemo.Domain.Abstractions;
 using LocalizationDemo.Domain.Models.Products;
 using LocalizationDemo.Domain.Services;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +9,7 @@ namespace LocalizationDemo.Database.Storage;
 public sealed class LocalizationDemoContext(
     DbContextOptions<LocalizationDemoContext> options,
     ContentCultureAccessor contentCultureAccessor
-) : DbContext(options)
+) : DbContext(options), IUnitOfWork
 {
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -20,4 +21,7 @@ public sealed class LocalizationDemoContext(
             .Entity<LocalizedProduct>()
             .HasQueryFilter(product => product.CultureCode.ToLower() == contentCultureAccessor.ContentCulture.ToLower());
     }
+
+    public Task CommitAsync(CancellationToken cancellationToken = default)
+        => SaveChangesAsync(cancellationToken);
 }

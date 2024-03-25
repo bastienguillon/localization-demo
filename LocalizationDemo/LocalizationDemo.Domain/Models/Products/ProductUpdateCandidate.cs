@@ -2,5 +2,6 @@
 
 public record ProductUpdateCandidate
 {
+    public Dictionary<string, ProductTranslationPayload>? Translations { get; init; }
     public ProductCategory? Category { get; init; }
 }

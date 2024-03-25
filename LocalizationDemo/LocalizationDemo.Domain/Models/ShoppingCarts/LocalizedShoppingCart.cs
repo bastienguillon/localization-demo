@@ -1,6 +1,6 @@
 ﻿using LocalizationDemo.Domain.Models.Products;
 
-namespace LocalizationDemo.Domain.Models.Shopping;
+namespace LocalizationDemo.Domain.Models.ShoppingCarts;
 
 public sealed class LocalizedShoppingCart
 {

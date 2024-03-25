@@ -25,12 +25,27 @@ public sealed class ProductsRepository(LocalizationDemoContext dbContext) : IPro
     {
         var product = await dbContext.Set<Product>().FirstAsync(product => product.Id == id);
 
+        if (candidate.Translations is not null)
+        {
+            product.Translations = candidate
+                .Translations
+                .Select(kvp => new Product.ProductTranslation
+                {
+                    CultureCode = kvp.Key,
+                    Name = kvp.Value.Name,
+                    Description = kvp.Value.Description
+                })
+                .ToList();
+        }
+
         if (candidate.Category is not null)
         {
             product.Category = candidate.Category.Value;
         }
 
         await dbContext.SaveChangesAsync();
-        return await GetByIdAsync(id);
+
+        var result = await GetByIdAsync(id);
+        return result;
     }
 }

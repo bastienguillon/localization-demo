@@ -1,4 +1,4 @@
-﻿using LocalizationDemo.Domain.Models.Shopping;
+﻿using LocalizationDemo.Domain.Models.ShoppingCarts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

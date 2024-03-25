@@ -21,4 +21,11 @@ public class ProductsRepositoryV2(LocalizationDemoContext dbContext) : IProducts
 
         return await query.ToArrayAsync();
     }
+
+    public Task<Product?> GetByIdAsync(int id)
+    {
+        return dbContext
+            .Set<Product>()
+            .FirstOrDefaultAsync(product => product.Id == id);
+    }
 }

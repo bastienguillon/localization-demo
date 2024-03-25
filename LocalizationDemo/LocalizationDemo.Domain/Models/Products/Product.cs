@@ -20,5 +20,5 @@ public sealed class Product
         public string? Description { get; set; }
     }
 
-    public IEnumerable<ProductTranslation> Translations { get; } = new List<ProductTranslation>();
+    public IEnumerable<ProductTranslation> Translations { get; set; } = new List<ProductTranslation>();
 }
